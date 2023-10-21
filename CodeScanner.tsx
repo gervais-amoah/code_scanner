@@ -20,10 +20,7 @@ function CodeScanner({setCodeData}: Props) {
         onRead={onSuccess}
         reactivate={true}
         reactivateTimeout={500}
-        // showMar]ker={true}
-        // cameraTimeout={5000}
-        // cameraContainerStyle={}
-        // flashMode={RNCamera.Constants.FlashMode.torch}
+        showMarker={true}
       />
     </View>
   );
@@ -34,8 +31,6 @@ const styles = StyleSheet.create({
     // height: 200,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 4,
-    // borderColor: '#b64f4f',
   },
 });
 

@@ -1,14 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {ReactNode} from 'react';
-import {
-  Dimensions,
-  Modal,
-  // Pressable,
-  StyleSheet,
-  Text,
-  // TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, Modal, StyleSheet, Text, View} from 'react-native';
 
 type Props = {
   isModalVisible: boolean;
@@ -27,10 +19,7 @@ function ModalView({isModalVisible, toggleModal, children}: Props) {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text>Loading scanner...</Text>
-            <View style={styles.modalBody}>
-              {children}
-              {/* <CodeScanner setCodeData={(_: string) => console.log('ahem')} /> */}
-            </View>
+            <View style={styles.modalBody}>{children}</View>
           </View>
         </View>
       </Modal>
@@ -47,11 +36,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 15,
   },
   modalBody: {
     flex: 1,

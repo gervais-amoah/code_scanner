@@ -5,7 +5,6 @@ import CodeScanner from './CodeScanner';
 import ModalView from './ModalView';
 
 const App = () => {
-  // const [openScanner, setOpenScanner] = useState(false);
   const [codeData, setCodeData] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -19,13 +18,11 @@ const App = () => {
   };
 
   const handlePress = () => {
-    console.log('Button Pressed');
-    // setOpenScanner(true);
     setModalVisible(true);
   };
 
   const handleSend = () => {
-    Alert.alert(`Sending data: ${codeData}`);
+    Alert.alert(`Send "${codeData}"`);
   };
 
   return (
@@ -45,13 +42,11 @@ const App = () => {
           <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
             <Text style={styles.buttonText}>Send data to the backend</Text>
           </TouchableOpacity>
-          <Text>Data: {codeData}</Text>
+          <Text>
+            Data decoded: <Text style={styles.dataText}>{codeData}</Text>
+          </Text>
         </>
       )}
-
-      {/* {openScanner && <CodeScanner setCodeData={handleScan} />} */}
-
-      {/* MODAL  */}
     </View>
   );
 };
@@ -68,7 +63,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
-    // marginBottom: 10,
   },
   sendButton: {
     backgroundColor: '#4ec78b',
@@ -76,10 +70,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 5,
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
+  },
+  dataText: {
+    fontWeight: '500',
   },
 });
 
