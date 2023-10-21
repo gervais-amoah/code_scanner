@@ -1,66 +1,85 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+/* eslint-disable prettier/prettier */
+import React, {useState} from 'react';
+import {View, TouchableOpacity, Text, StyleSheet, Alert} from 'react-native';
+import CodeScanner from './CodeScanner';
+import ModalView from './ModalView';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const App = () => {
+  // const [openScanner, setOpenScanner] = useState(false);
+  const [codeData, setCodeData] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const handleScan = (data: string) => {
+    setCodeData(data);
+    setModalVisible(false);
+  };
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handlePress = () => {
+    console.log('Button Pressed');
+    // setOpenScanner(true);
+    setModalVisible(true);
+  };
+
+  const handleSend = () => {
+    Alert.alert(`Sending data: ${codeData}`);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text style={styles.highlight}>App.tsx</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      {isModalVisible ? (
+        <ModalView isModalVisible={isModalVisible} toggleModal={toggleModal}>
+          <CodeScanner setCodeData={handleScan} />
+        </ModalView>
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Launch scanner</Text>
+        </TouchableOpacity>
+      )}
+
+      {codeData && (
+        <>
+          <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+            <Text style={styles.buttonText}>Send data to the backend</Text>
+          </TouchableOpacity>
+          <Text>Data: {codeData}</Text>
+        </>
+      )}
+
+      {/* {openScanner && <CodeScanner setCodeData={handleScan} />} */}
+
+      {/* MODAL  */}
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  button: {
+    backgroundColor: '#3498db',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    // marginBottom: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
+  sendButton: {
+    backgroundColor: '#4ec78b',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
     fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
   },
 });
 
